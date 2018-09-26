@@ -1,0 +1,30 @@
+@import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+
+.dropdown-menu li.selected a i.check-mark {
+  display: inline-block;
+  position: absolute;
+  right: 12px;
+  margin-top: 2.5px;
+}
+
+.dropdown-menu{
+  overflow: auto;
+  width: 200px; /* adjust this width depending to amount of text to display */
+  height:200px; /* adjust height depending on number of options to display */
+  border: 1px silver solid;
+}
+
+textarea, select{
+    color: #000 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    color: #fff !important;
+}
+
+.level_drop_down .btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+  width: 60px; /* adjust this width depending to amount of text to display */
+}
+

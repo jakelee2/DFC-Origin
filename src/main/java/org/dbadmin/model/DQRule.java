@@ -1,0 +1,25 @@
+package org.dbadmin.model;
+
+/**
+ * Created by henrynguyen on 8/31/16.
+ */
+public enum  DQRule {
+    NULL_CHECK,
+    LENGTH_CHECK,
+    SET_CHECK,
+    OUTLIER,
+    DATE_CHECK, 
+    ORPHAN_DETECT,
+    INVALID_PK_DETECT,
+    DATA_TYPE_DETECT,
+    NA,			
+    PHONE_CHECK,
+    ADDRESS_CHECK,
+    DUP_CHECK, 
+    CANDIDATE_KEY_CHECK,
+    CLUSTER_DETECT, 
+    FITTING_DISTRIBUTION,
+    ABNORMAL_DUP_CHECK,
+    DATE_PARSABILITY,
+    NUMERIC_CONVERTION_DETECT
+    }

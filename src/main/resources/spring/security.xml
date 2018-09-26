@@ -1,0 +1,56 @@
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<http>
+		<form-login login-page="/login" username-parameter="ssoId"
+			password-parameter="password" authentication-failure-handler-ref="authFailureHandler" />
+		<access-denied-handler error-page="/Access_Denied" />
+		<csrf disabled="true" />
+		<http-basic />
+		<custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="myFilter" />
+	</http>
+
+	<b:bean id="myFilter"
+		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<b:property name="authenticationManager" ref="authenticationManager" />
+		<b:property name="accessDecisionManager" ref="myAccessDecisionManagerBean" />
+		<b:property name="securityMetadataSource" ref="myFilterInvocationSecurityMetadataSource" />
+	</b:bean>
+
+	<b:bean id="myFilterInvocationSecurityMetadataSource"
+		class="org.dbadmin.handler.FilterSecurityMetadataSourceImpl" />
+	<b:bean id="myAccessDecisionManagerBean"
+		class="org.dbadmin.handler.AccessDecisionManagerImpl" />
+
+	<b:bean id="authFailureHandler"
+		class="org.dbadmin.handler.LoginAuthenticationFailureHandler" />
+
+	<b:bean id="userDetailsServiceHandler"
+		class="org.dbadmin.service.UserDetailsServiceImpl" />
+
+	<b:bean id="daoAuthentication"
+		class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<b:property name="userDetailsService" ref="userDetailsServiceHandler" />
+		<!-- It prevents conversion of UsernameNotFoundException to BadCredentialsException -->
+		<b:property name="hideUserNotFoundExceptions" value="false" />
+	</b:bean>
+
+	<!-- Basically <http> part depends on <authentication-manager> element -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider>
+			<password-encoder ref="encoder" />
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="select username,password, enabled from users where username=?"
+				authorities-by-username-query="select u.username, r.role_name from users_roles ur, users u, roles r  where u.username =? AND u.id = ur.user_id AND ur.role_id = r.id  " />
+		</authentication-provider>
+		<authentication-provider ref="daoAuthentication" />
+	</authentication-manager>
+
+	<b:bean id="encoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<b:constructor-arg name="strength" value="10" />
+	</b:bean>
+
+</b:beans>

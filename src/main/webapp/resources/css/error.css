@@ -1,0 +1,103 @@
+.error_msg {
+	position: absolute;
+	bottom: calc(50% + 70px);
+	left: calc(50% - 46px);
+	height: 150px;
+	width: 262px;
+	padding: 5px;
+	z-index: 2;
+	margin-bottom: 20px;
+}
+
+.a-box {
+	display: block;
+	border-radius: 4px;
+	border: 1px #fff solid;
+	background: rgba(0, 0, 0, 0.3);
+	/* Make the error message box black-transparent */
+}
+
+.a-alert-error {
+	border-color: #000000;
+	border-width: 0px;
+}
+
+.a-spacing-base {
+	position: absolute;
+	bottom: calc(50% - 100px);
+	width: 260px;
+	margin-bottom: 14px !important;
+}
+
+.a-box-inner {
+	border-radius: 4px;
+	position: relative;
+	padding: 14px 18px;
+}
+
+.a-alert-error .a-alert-container {
+	padding-left: 58px;
+	box-shadow: 0 0 0 0;
+}
+
+h4 {
+	padding: 0;
+	margin: 0;
+	font-family: 'Exo', sans-serif;
+	text-rendering: optimizeLegibility;
+	padding-bottom: 4px;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 1.255;
+}
+
+.a-alert-heading {
+	color: #c61331;
+}
+
+.a-icon-alert { /* size and position of the error image */
+	background-image: url(../images/icon/warning.png);
+	background-repeat: no-repeat;
+	height: 32px;
+	width: 32px;
+	position: absolute;
+    left: -1px;
+    margin-left: 15px;
+    top: -1px;
+    margin-top: 25px;
+	
+}
+
+ul {
+	margin: 0 0 18px 18px;
+	color: #ffffff;
+	display: block;
+	list-style-type: disc;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	-webkit-padding-start: 5px;
+}
+
+ul.a-nostyle {
+	margin-left: 0;
+	color: #fff;
+}
+
+ul.a-nostyle li {
+	list-style: none;
+	display: list-item;
+	text-align: -webkit-match-parent;
+	font-family: 'Exo', sans-serif;
+	font-weight: 500;
+}
+
+ul li {
+	word-wrap: break-word;
+	margin: 0;
+}
+
+#msgBox { /* for signup.jsp */
+	visibility: hidden;
+}

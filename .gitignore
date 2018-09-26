@@ -1,0 +1,9 @@
+target/*
+.settings/*
+.classpath
+.project
+.idea
+*.iml
+/target
+.mvn/
+src/main/resources/spring/data-access.properties

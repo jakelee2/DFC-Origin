@@ -1,0 +1,13 @@
+{ 
+    "bundle" : "datatables", 
+    "assets": [ 
+        { 
+            "name": "datatables", 
+            "version": "1.10.7", 
+            "type": "js", 
+            "locations": { 
+                "classpath": "/vendors/dandelion/jquery.dataTables.js" 
+            } 
+        }
+    ] 
+}

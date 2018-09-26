@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- - DispatcherServlet application context for web tier. -->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<import resource="mvc-view-config.xml" />
+
+	<!-- - POJOs labeled with the @Controller and @Service annotations are auto-detected. -->
+	<context:component-scan base-package="org.dbadmin.web" />
+
+	<mvc:annotation-driven conversion-service="conversionService" />
+
+	<!-- all resources inside folder src/main/webapp/resources are mapped so
+		they can be refered to inside JSP files (see staticFiles.jsp for more details) -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/vendors/**" location="/vendors/" />
+	<mvc:resources mapping="/docs/**" location="/docs/" />
+
+	<mvc:view-controller path="/" view-name="/home" />
+	<mvc:view-controller path="/dashboard" view-name="/home" />
+	<mvc:view-controller path="/login" view-name="login" />
+	<mvc:view-controller path="/signup" view-name="signup" />
+	<mvc:view-controller path="/ingestion" view-name="/ingestion" />
+	<mvc:view-controller path="/ui" view-name="/ui" />
+	<mvc:view-controller path="/dqstats" view-name="/dqstats" />
+	<mvc:view-controller path="/dqoutput" view-name="/dqoutput" />
+	<mvc:view-controller path="/data" view-name="/newui/dashboard" />
+	<mvc:view-controller path="/jobboard" view-name="/newui/jobboard" />
+	<mvc:view-controller path="/newui" view-name="/newui/jobs" />
+
+	<!-- temporary here until move to ingestion page -->
+	<mvc:view-controller path="/dbtables" view-name="/dbtables" />
+	<mvc:view-controller path="/dbconnections"
+		view-name="/dbconnections" />
+
+	<!-- serve static resources (*.html, ...) from src/main/webapp/ Required
+		when both servlet-mapping is '/' and static resources need to be served -->
+	<mvc:default-servlet-handler />
+
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="formatters">
+			<set>
+				<bean class="org.dbadmin.web.TypeFormatter" />
+			</set>
+		</property>
+	</bean>
+
+	<!-- - Message source for this context, loaded from localized "messages_xx"
+		files. - Files are stored inside src/main/resources -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource"
+		p:basename="messages/messages" />
+
+	<!-- - This bean resolves specific types of exceptions to corresponding
+		logical - view names for error views. -->
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<!-- view name resolved using bean of type InternalResourceViewResolver
+			(declared in mvc-view-config.xml) -->
+		<property name="defaultErrorView" value="exception" />
+		<!-- results into 'WEB-INF/jsp/exception.jsp' -->
+		<property name="warnLogCategory" value="warn" />
+		<!-- needed otherwise exceptions won't be logged anywhere -->
+	</bean>
+
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+        <!-- one of the several properties available; the maximum file size in bytes -->
+        <property name="maxUploadSizePerFile" value="5242880"/>
+    </bean>
+
+    <bean id="fileValidator" class="org.dbadmin.util.FileValidator"></bean>
+    <bean id="multiFileValidator" class="org.dbadmin.util.MultiFileValidator"></bean>
+
+
+</beans>
+

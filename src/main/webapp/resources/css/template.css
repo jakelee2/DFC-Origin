@@ -1,0 +1,23 @@
+.container {
+	width: 75%;
+}
+
+.form-horizontal {
+	width: 100%;
+}
+
+input[type="text"] {
+	height: 25px;
+}
+
+.navbar .nav>li>a {
+	color: #000000;
+}
+
+.navbar {
+	width: 75%;
+}
+
+.form-horizontal .control-label {
+	text-align: left;
+}
